@@ -4,7 +4,11 @@
 
 @* Contenedor donde va a ir la caja de texto para insertar una nueva tarea *@
 <div class="container border-1">
+	<label for="txtDescription">Nombre de la tarea : </label>
+	<InputText id="txtTaskName" @bind-Value="NewTaskName"/>
+
 	<label for="txtDescription">Descripción de la tarea : </label>
+	<InputText id="txtTaskName" @bind-Value="NewTaskDescription"/>
 
 	<button @onclick="addNewTask">Añadir Tarea</button>
 </div>
@@ -31,15 +35,15 @@
 
 
 @code {
-	private List<Task> pendingTasks { get; set; } = new();
-	private List<Task> finishedTasks { get; set; } = new();
+	private List<Task> pendingTasks { get; set; } = new(); @* Lista de tareas pendientes *@
+	private List<Task> finishedTasks { get; set; } = new(); @* Lista de tareas realizadas *@
 
 
-	static string NewTaskName = ""; 
-	@* Para el nombre de la nueva tarea *@
+	static string NewTaskName = ""; @* Para el nombre de la nueva tarea *@
 	static string NewTaskDescription = ""; @* Para la descripción de la nueva tarea *@
 	static int countTaskId = 0; @* Contador del ID de las tareas *@
 
+	@* Comprueba y añade una nueva tarea si la info escrita por el usuario procede *@
 	void addNewTask()
 	{
 		if (NewTaskName != "" && NewTaskDescription != "")
@@ -56,11 +60,13 @@
 	@* Clase para las Tareas *@
     class Task
     {
+		@* Propiedades de las tareas *@
 		public string TaskName { get; set; }
 		public string DescriptionTask { get; set; }
         public bool Done { get; set; }
 		public int TaskID { get; set; }
 
+		@* Constructor para crear una nueva tarea *@
 		public Task(string name, string desc){
 			TaskID = countTaskId;
 			countTaskId++;
