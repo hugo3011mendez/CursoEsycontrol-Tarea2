@@ -5,13 +5,12 @@
 @* Contenedor donde va a ir la caja de texto para insertar una nueva tarea *@
 <div class="container border-1">
 	<label for="txtDescription">Nombre de la tarea : </label>
-	<InputText id="txtTaskName" @bind-Value="NewTaskName"/>
-
+@*	<InputText id="txtTaskName" @bind-Value="NewTaskName"/>*@
 	<label for="txtDescription">Descripción de la tarea : </label>
-	<InputText id="txtTaskName" @bind-Value="NewTaskDescription"/>
-
+@*	<InputText id="txtTaskName" @bind-Value="NewTaskDescription"/>*@
 	<button @onclick="addNewTask">Añadir Tarea</button>
 </div>
+
 
 @* Contenedor para las tareas pendientes *@
 <div class="container border-2">
@@ -22,6 +21,7 @@
 	   }
 	</ul>
 </div>
+
 
 @* Contenedor para las tareas realizadas *@
 <div class="container border-2">
@@ -50,14 +50,10 @@
 		{
 			Task newTask = new(NewTaskName, NewTaskDescription);		
 		}
-		else
-		{
-			<h4 style="color:red;">No has introducido los datos de la nueva tarea</h4>
-		}
 	}
 
 
-	@* Clase para las Tareas *@
+	@* Clase que define las propiedades de las Tareas *@
     class Task
     {
 		@* Propiedades de las tareas *@
@@ -70,9 +66,10 @@
 		public Task(string name, string desc){
 			TaskID = countTaskId;
 			countTaskId++;
-
-			DescriptionTask = desc;
 			Done = false;
+
+			TaskName = name;
+			DescriptionTask = desc;
 		}
     }
 }
