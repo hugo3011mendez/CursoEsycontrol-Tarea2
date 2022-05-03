@@ -1,7 +1,26 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h3>TaskManager</h3>
 
-Welcome to your new app.
+@code {
+    private List<Task> pendingTasks { get; set; } = new();
+	string NewTaskDescription = "";
+	int countTaskId = 0;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+	void addNewTask()
+	{
+		countTaskId++;
+		Task newTask = new();
+		newTask.DescriptionTask = NewTaskDescription;
+		newTask.Done = false;
+		newTask.TaskID = 0;
+	}
+
+
+    class Task
+    {
+        public bool Done { get; set; }
+		public string DescriptionTask { get; set; }
+		public int TaskID { get; set; }
+    }
+}
