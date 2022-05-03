@@ -2,6 +2,17 @@
 
 <h3>TaskManager</h3>
 
+@* Contenedor donde va a ir la caja de texto para insertar una nueva tarea *@
+<div class="container border-1">
+	<label for="txtDescription">Descripción de la tarea : </label>
+
+</div>
+
+@* Contenedor para las tareas presentes en la lista *@
+<div class="container border-2">
+
+</div>
+
 @code {
     private List<Task> pendingTasks { get; set; } = new();
 	string NewTaskDescription = "";
