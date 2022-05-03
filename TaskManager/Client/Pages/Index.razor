@@ -6,32 +6,67 @@
 <div class="container border-1">
 	<label for="txtDescription">Descripción de la tarea : </label>
 
+	<button @onclick="addNewTask">Añadir Tarea</button>
 </div>
 
-@* Contenedor para las tareas presentes en la lista *@
+@* Contenedor para las tareas pendientes *@
 <div class="container border-2">
-
+	<ul>
+		@foreach (var task in pendingTasks)
+	   {
+		<li>@task.TaskName</li>
+	   }
+	</ul>
 </div>
+
+@* Contenedor para las tareas realizadas *@
+<div class="container border-2">
+	<ul>
+		@foreach (var task in finishedTasks)
+	   {
+		<li>@task.TaskName</li>
+	   }
+	</ul>
+</div>
+
 
 @code {
-    private List<Task> pendingTasks { get; set; } = new();
-	string NewTaskDescription = "";
-	int countTaskId = 0;
+	private List<Task> pendingTasks { get; set; } = new();
+	private List<Task> finishedTasks { get; set; } = new();
+
+
+	static string NewTaskName = ""; 
+	@* Para el nombre de la nueva tarea *@
+	static string NewTaskDescription = ""; @* Para la descripción de la nueva tarea *@
+	static int countTaskId = 0; @* Contador del ID de las tareas *@
 
 	void addNewTask()
 	{
-		countTaskId++;
-		Task newTask = new();
-		newTask.DescriptionTask = NewTaskDescription;
-		newTask.Done = false;
-		newTask.TaskID = 0;
+		if (NewTaskName != "" && NewTaskDescription != "")
+		{
+			Task newTask = new(NewTaskName, NewTaskDescription);		
+		}
+		else
+		{
+			<h4 style="color:red;">No has introducido los datos de la nueva tarea</h4>
+		}
 	}
 
 
+	@* Clase para las Tareas *@
     class Task
     {
-        public bool Done { get; set; }
+		public string TaskName { get; set; }
 		public string DescriptionTask { get; set; }
+        public bool Done { get; set; }
 		public int TaskID { get; set; }
+
+		public Task(string name, string desc){
+			TaskID = countTaskId;
+			countTaskId++;
+
+			DescriptionTask = desc;
+			Done = false;
+		}
     }
 }
