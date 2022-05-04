@@ -35,8 +35,8 @@
 
 
 @code {
-	private List<Task> pendingTasks { get; set; } = new(); @* Lista de tareas pendientes *@
-	private List<Task> finishedTasks { get; set; } = new(); @* Lista de tareas realizadas *@
+	private List<ToDoTask> pendingTasks { get; set; } = new(); @* Lista de tareas pendientes *@
+	private List<ToDoTask> finishedTasks { get; set; } = new(); @* Lista de tareas realizadas *@
 
 
 	static string NewTaskName = ""; @* Para el nombre de la nueva tarea *@
@@ -48,13 +48,13 @@
 	{
 		if (NewTaskName != "" && NewTaskDescription != "")
 		{
-			Task newTask = new(NewTaskName, NewTaskDescription);		
+			ToDoTask newTask = new(NewTaskName, NewTaskDescription);		
 		}
 	}
 
 
 	@* Clase que define las propiedades de las Tareas *@
-    class Task
+    class ToDoTask
     {
 		@* Propiedades de las tareas *@
 		public string TaskName { get; set; }
@@ -63,7 +63,7 @@
 		public int TaskID { get; set; }
 
 		@* Constructor para crear una nueva tarea *@
-		public Task(string name, string desc){
+		public ToDoTask(string name, string desc){
 			TaskID = countTaskId;
 			countTaskId++;
 			Done = false;
