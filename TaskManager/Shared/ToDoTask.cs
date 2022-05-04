@@ -19,8 +19,10 @@ namespace TaskManager.Shared
 		public bool Done { get; set; }
 		public int TaskID { get; set; }
 
-		// Constructor para crear una nueva tarea
-		public ToDoTask(string TaskName, string DescriptionTask)
+		public DateTime TimeStamp { get; set; } = DateTime.Now; // Por defecto que sea el momento actual
+
+        // Constructor para crear una nueva tarea
+        public ToDoTask(string TaskName, string DescriptionTask)
 		{
 			Done = false;
 			this.TaskName = TaskName;

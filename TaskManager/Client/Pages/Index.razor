@@ -17,7 +17,7 @@
 @* Contenedor para las tareas pendientes *@
 <div class="container border-2">
 	<ul>
-		@foreach (var task in pendingTasks)
+		@foreach (var task in _pendingTasks)
 	   {
 		<li>@task.TaskName</li>
 	   }
@@ -28,7 +28,7 @@
 @* Contenedor para las tareas realizadas *@
 <div class="container border-2">
 	<ul>
-		@foreach (var task in finishedTasks)
+		@foreach (var task in _finishedTasks)
 	   {
 		<li>@task.TaskName</li>
 	   }
