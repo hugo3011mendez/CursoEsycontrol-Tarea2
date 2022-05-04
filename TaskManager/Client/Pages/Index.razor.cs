@@ -18,7 +18,7 @@ namespace TaskManager.Client.Pages
 		{
 			if (NewTaskName != "" && NewTaskDescription != "")
 			{
-				ToDoTask newTask = new(countTaskId, NewTaskName, NewTaskDescription);
+				ToDoTask newTask = new(NewTaskName, NewTaskDescription);
 				countTaskId++;
 			}
 		}

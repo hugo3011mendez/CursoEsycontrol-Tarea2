@@ -27,7 +27,7 @@ namespace TaskManager.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<ToDoContext>(
+            services.AddDbContext<ToDoDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 

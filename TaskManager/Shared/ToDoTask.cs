@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace TaskManager.Shared
@@ -22,12 +20,11 @@ namespace TaskManager.Shared
 		public int TaskID { get; set; }
 
 		// Constructor para crear una nueva tarea
-		public ToDoTask(int id, string name, string desc)
+		public ToDoTask(string TaskName, string DescriptionTask)
 		{
-			TaskID = id;
 			Done = false;
-			TaskName = name;
-			DescriptionTask = desc;
+			this.TaskName = TaskName;
+			this.DescriptionTask = DescriptionTask;
 		}
 	}
 }
