@@ -11,6 +11,7 @@ namespace TaskManager.Shared
 {
     public class ToDoTask
     {
+		// Elementos necesarios para la parte con BBDD
 		[Key]
 		public Guid Id { get; set; }
 
@@ -21,12 +22,10 @@ namespace TaskManager.Shared
 		public int TaskID { get; set; }
 
 		// Constructor para crear una nueva tarea
-		public ToDoTask(string name, string desc)
+		public ToDoTask(int id, string name, string desc)
 		{
-			//TaskID = countTaskId;
-			//countTaskId++;
+			TaskID = id;
 			Done = false;
-
 			TaskName = name;
 			DescriptionTask = desc;
 		}
