@@ -71,6 +71,7 @@ namespace TaskManager.Server.Controllers
             return Ok();
         }
 
+
         [HttpPost("(NewTask)")]
         public IActionResult Update(ToDoTask newTask) // Para eliminar una tarea por ID
         {
@@ -79,6 +80,7 @@ namespace TaskManager.Server.Controllers
                 return BadRequest(); // Devuelvo error si la nueva tarea no se encuentra presente
             }
 
+            var now = DateTime.Now;
             if(newTask.Id == Guid.Empty)
             {
                 _toDoDbContext.Todos.Add(newTask);
@@ -102,7 +104,7 @@ namespace TaskManager.Server.Controllers
                     dbTask.DescriptionTask = newTask.DescriptionTask;
                     dbTask.Done = newTask.Done;
 
-                    dbTask.TimeStamp = DateTime.Now;
+                    dbTask.TimeStamp = now;
                     newTask.TimeStamp = dbTask.TimeStamp;
                 }
             }

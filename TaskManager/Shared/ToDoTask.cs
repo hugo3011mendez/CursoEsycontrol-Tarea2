@@ -28,5 +28,7 @@ namespace TaskManager.Shared
 			this.TaskName = TaskName;
 			this.DescriptionTask = DescriptionTask;
 		}
+
+		public ToDoTask() { } // Constructor vacío
 	}
 }

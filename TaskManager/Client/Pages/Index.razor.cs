@@ -15,21 +15,44 @@ namespace TaskManager.Client.Pages
 		private List<ToDoTask> _pendingTasks { get; set; } = new(); // Lista de tareas pendientes
 		private List<ToDoTask> _finishedTasks { get; set; } = new(); // Lista de tareas realizadas
 
-		// TODO : Aprender a hacer esta función bien
-   //     protected override async ToDoTask OnInitializedAsync()
-   //     {
-			//await Task.Delay(1);
-   //         await base.OnInitializedAsync();
+        private ToDoTask _task = new(); // Una nueva tarea vacía
 
-			//var response = await HttpClient.GetAsync("todoTask/finished"); // Devuelve el resultado de la consulta
+        // TODO : Aprender a hacer esta función bien
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
 
-   //         if (response.IsSuccessStatusCode)
-   //         {
-			//	var content = response.Content.ReadAsStringAsync();
+            var finishedResponse = await HttpClient.GetAsync("todoTask/finished"); // Devuelve el resultado de la consulta
 
-			//	_finishedTasks = JsonConvert.DeserializeObject(<List<ToDoTask>>(content));
-   //         }
-   //     }
+            if (finishedResponse.IsSuccessStatusCode)
+            {
+                var content = await finishedResponse.Content.ReadAsStringAsync();
+
+                _finishedTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
+            }
+        }
+
+        private async Task LoadPendingTodosTask() // Aquí se agrupará el código para cargar todas las tareas pendientes
+        {
+
+        }
+        private async Task LoadFinishedTodosTask() // Aquí se agrupará el código para cargar todas las tareas realizadas
+        {
+
+        }
+
+
+        // Para manejar los datos provenientes del formulario que establece datos a la tarea vacía
+        private async Task HandleValidSubmitAsync()
+        {
+            string content = JsonConvert.SerializeObject(_task);
+
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(content);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            await HttpClient.PostAsync("todo/update", byteContent);
+        }
 
 
         static string NewTaskName = ""; // Para el nombre de la nueva tarea

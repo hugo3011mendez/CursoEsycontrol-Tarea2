@@ -34,3 +34,15 @@
 	   }
 	</ul>
 </div>
+
+
+<EditForm Model="@_task" OnValidSubmit="@HandleValidSubmitAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="name" @bind-Value="_task.TaskName" />
+    <InputText id="description" @bind-Value="_task.DescriptionTask" />
+    <InputCheckbox id="done" @bind-Value="_task.Done" />
+
+    <button type="submit">Submit</button>
+</EditForm>
