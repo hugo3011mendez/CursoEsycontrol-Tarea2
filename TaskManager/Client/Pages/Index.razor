@@ -1,4 +1,6 @@
-﻿@page "/"
+﻿@using TaskManager.Shared;
+
+@page "/"
 
 <h3>TaskManager</h3>
 
@@ -51,25 +53,4 @@
 			ToDoTask newTask = new(NewTaskName, NewTaskDescription);		
 		}
 	}
-
-
-	@* Clase que define las propiedades de las Tareas *@
-    class ToDoTask
-    {
-		@* Propiedades de las tareas *@
-		public string TaskName { get; set; }
-		public string DescriptionTask { get; set; }
-        public bool Done { get; set; }
-		public int TaskID { get; set; }
-
-		@* Constructor para crear una nueva tarea *@
-		public ToDoTask(string name, string desc){
-			TaskID = countTaskId;
-			countTaskId++;
-			Done = false;
-
-			TaskName = name;
-			DescriptionTask = desc;
-		}
-    }
 }
