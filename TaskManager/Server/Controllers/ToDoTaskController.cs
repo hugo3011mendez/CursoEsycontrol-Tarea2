@@ -10,7 +10,7 @@ using TaskManager.Shared;
 namespace TaskManager.Server.Controllers
 {
     [ApiController]
-    [Route("[controller] /[action]")]
+    [Route("[controller]/[action]")]
     public class ToDoTaskController : ControllerBase
     {
         private readonly ToDoDbContext _toDoDbContext; // Instancia haciendo referencia al DBContext de la BBDD
@@ -114,7 +114,7 @@ namespace TaskManager.Server.Controllers
                     newTask.TimeStamp = dbTask.TimeStamp; // Y actualizo el timestamp de la tarea actualizada
                 }
             }
-            _toDoDbContext.SaveChanges(); // Finalmente, guardo los cambios
+            _ = _toDoDbContext.SaveChanges(); // Finalmente, guardo los cambios
 
             return Ok(); // Devuelvo un Ok() como resultado de la ejecución de esta consulta
         }
