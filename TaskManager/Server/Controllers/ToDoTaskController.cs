@@ -74,7 +74,7 @@ namespace TaskManager.Server.Controllers
         }
 
 
-        [HttpPost("(NewTask)")]
+        [HttpPost]
         public IActionResult Update(ToDoTask newTask) // Añade o actualiza una tarea en la BBDD
         {
             if (newTask is null)
