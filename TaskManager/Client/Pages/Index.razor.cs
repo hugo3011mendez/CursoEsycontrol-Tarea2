@@ -17,28 +17,39 @@ namespace TaskManager.Client.Pages
 
         private ToDoTask _task = new(); // Una nueva tarea vacía
 
-        // TODO : Aprender a hacer esta función bien
+        // Consigue las tareas pendientes y las tareas realizadas, y las guarda en las listas anteriormente declaradas
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
 
-            var finishedResponse = await HttpClient.GetAsync("todoTask/finished"); // Devuelve el resultado de la consulta
+            await LoadFinishedTodosAsync();
+            await LoadPendingTodosAsync();
+        }
 
-            if (finishedResponse.IsSuccessStatusCode)
+        // Consigue las tareas pendientes conectándose a la BBDD, y las guarda en su lista previamente declarada
+        private async Task LoadPendingTodosAsync()
+        {
+            var pendingResponse = await HttpClient.GetAsync("todo/pending");
+
+            if (pendingResponse.IsSuccessStatusCode)
             {
-                var content = await finishedResponse.Content.ReadAsStringAsync();
+                string content = await pendingResponse.Content.ReadAsStringAsync();
 
-                _finishedTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
+                _pendingTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
             }
         }
 
-        private async Task LoadPendingTodosTask() // Aquí se agrupará el código para cargar todas las tareas pendientes
+        // Consigue las tareas realizadas conectándose a la BBDD, y las guarda en su lista previamente declarada
+        private async Task LoadFinishedTodosAsync()
         {
+            var finishedResponse = await HttpClient.GetAsync("todo/finished");
 
-        }
-        private async Task LoadFinishedTodosTask() // Aquí se agrupará el código para cargar todas las tareas realizadas
-        {
+            if (finishedResponse.IsSuccessStatusCode)
+            {
+                string content = await finishedResponse.Content.ReadAsStringAsync();
 
+                _finishedTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
+            }
         }
 
 
@@ -57,7 +68,6 @@ namespace TaskManager.Client.Pages
 
         static string NewTaskName = ""; // Para el nombre de la nueva tarea
 		static string NewTaskDescription = ""; // Para la descripción de la nueva tarea
-		static int countTaskId = 0; // Contador del ID de las tareas 
 
 		// Comprueba y añade una nueva tarea si la info escrita por el usuario procede 
 		void addNewTask()
@@ -65,7 +75,6 @@ namespace TaskManager.Client.Pages
 			if (NewTaskName != "" && NewTaskDescription != "")
 			{
 				ToDoTask newTask = new(NewTaskName, NewTaskDescription);
-				countTaskId++;
 			}
 		}
 
