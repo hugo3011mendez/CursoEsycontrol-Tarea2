@@ -15,7 +15,8 @@ namespace TaskManager.Client.Pages
 		private List<ToDoTask> _pendingTasks { get; set; } = new(); // Lista de tareas pendientes
 		private List<ToDoTask> _finishedTasks { get; set; } = new(); // Lista de tareas realizadas
 
-        private ToDoTask _task = new(); // Una nueva tarea vacía
+        private ToDoTask _task = new(); // Una nueva tarea vacía, para subir sus datos a la BBDD cuando se añada
+
 
         // Consigue las tareas pendientes y las tareas realizadas, y las guarda en las listas anteriormente declaradas
         protected override async Task OnInitializedAsync()
@@ -31,10 +32,11 @@ namespace TaskManager.Client.Pages
         {
             var pendingResponse = await HttpClient.GetAsync("todo/pending");
 
-            if (pendingResponse.IsSuccessStatusCode)
+            if (pendingResponse.IsSuccessStatusCode) // Si la respuesta es correcta y se obtienen los datos
             {
-                string content = await pendingResponse.Content.ReadAsStringAsync();
+                string content = await pendingResponse.Content.ReadAsStringAsync(); // Consigo los datos como JSON
 
+                // Deserializo los datos JSON y los convierto a Lista de ToDoTask
                 _pendingTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
             }
         }
@@ -44,39 +46,27 @@ namespace TaskManager.Client.Pages
         {
             var finishedResponse = await HttpClient.GetAsync("todo/finished");
 
-            if (finishedResponse.IsSuccessStatusCode)
+            if (finishedResponse.IsSuccessStatusCode) // Si la respuesta es correcta y se obtienen los datos
             {
-                string content = await finishedResponse.Content.ReadAsStringAsync();
+                string content = await finishedResponse.Content.ReadAsStringAsync(); // Consigo los datos como JSON
 
+                // Deserializo los datos JSON y los convierto a Lista de ToDoTask
                 _finishedTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
             }
         }
 
-
-        // Para manejar los datos provenientes del formulario que establece datos a la tarea vacía
+        // Llama al controlador para que añada la nueva tarea a la BBDD
         private async Task HandleValidSubmitAsync()
         {
-            string content = JsonConvert.SerializeObject(_task);
+            string content = JsonConvert.SerializeObject(_task); // Convierte el objeto en JSON
 
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(content);
             var byteContent = new ByteArrayContent(buffer);
+
+            // Para indicar que es contenido JSON
             byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-            await HttpClient.PostAsync("todo/update", byteContent);
+            await HttpClient.PostAsync("todo/update", byteContent); // Llama al método Update() del controlador
         }
-
-
-        static string NewTaskName = ""; // Para el nombre de la nueva tarea
-		static string NewTaskDescription = ""; // Para la descripción de la nueva tarea
-
-		// Comprueba y añade una nueva tarea si la info escrita por el usuario procede 
-		void addNewTask()
-		{
-			if (NewTaskName != "" && NewTaskDescription != "")
-			{
-				ToDoTask newTask = new(NewTaskName, NewTaskDescription);
-			}
-		}
-
 	}
 }

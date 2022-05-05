@@ -9,9 +9,9 @@ namespace TaskManager.Shared
 {
     public class ToDoTask
     {
-		// Elementos necesarios para la parte con BBDD
+		// Todas sus propiedades serán representadas en la BBDD
 		[Key]
-		public Guid Id { get; set; }
+		public Guid Id { get; set; } // ID de la tarea, proporcionado automáticamente por la BBDD
 
 		// Propiedades de las tareas
 		public string TaskName { get; set; }
@@ -19,7 +19,7 @@ namespace TaskManager.Shared
 		public bool Done { get; set; }
 		public int TaskID { get; set; }
 
-		public DateTime TimeStamp { get; set; } = DateTime.Now; // Por defecto que sea el momento actual
+		public DateTime TimeStamp { get; set; } = DateTime.Now; // Fecha que indica cuándo ha sido creada o actualizada
 
         // Constructor para crear una nueva tarea
         public ToDoTask(string TaskName, string DescriptionTask)
