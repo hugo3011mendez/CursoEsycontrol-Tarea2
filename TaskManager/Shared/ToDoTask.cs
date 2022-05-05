@@ -17,17 +17,8 @@ namespace TaskManager.Shared
 		public string TaskName { get; set; }
 		public string DescriptionTask { get; set; }
 		public bool Done { get; set; }
-		public int TaskID { get; set; }
 
 		public DateTime TimeStamp { get; set; } = DateTime.Now; // Fecha que indica cuándo ha sido creada o actualizada
-
-        // Constructor para crear una nueva tarea
-        public ToDoTask(string TaskName, string DescriptionTask)
-		{
-			Done = false;
-			this.TaskName = TaskName;
-			this.DescriptionTask = DescriptionTask;
-		}
 
 		public ToDoTask() { } // Constructor vacío
 	}

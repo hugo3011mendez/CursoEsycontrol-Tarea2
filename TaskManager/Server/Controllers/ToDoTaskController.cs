@@ -11,10 +11,11 @@ namespace TaskManager.Server.Controllers
 {
     [ApiController]
     [Route("[controller] /[action]")]
-    public class ToDoTaskController : Controller
+    public class ToDoTaskController : ControllerBase
     {
         private readonly ToDoDbContext _toDoDbContext; // Instancia haciendo referencia al DBContext de la BBDD
-        
+        public ToDoTaskController(ToDoDbContext todoDbContext) => _toDoDbContext = todoDbContext; // Constructor del controlador
+
         [HttpGet]
         public IActionResult GetAll() // Consigue todas las tareas
         {
