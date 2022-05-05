@@ -5,12 +5,22 @@
 <h3>TaskManager</h3>
 
 @* Contenedor donde va a ir la caja de texto para insertar una nueva tarea *@
-<div class="container border-1">
-	<label for="txtDescription">Nombre de la tarea : </label>
-@*	<InputText id="txtTaskName" @bind-Value="NewTaskName"/>*@
-	<label for="txtDescription">Descripción de la tarea : </label>
-@*	<InputText id="txtTaskName" @bind-Value="NewTaskDescription"/>*@
-	<button @onclick="addNewTask">Añadir Tarea</button>
+<div class="container border border-primary p-3">
+	<EditForm Model="@_task" OnValidSubmit="@HandleValidSubmitAsync">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+
+		<label for="txtName">Nombre de la nueva tarea :</label>
+		<InputText id="txtName" @bind-Value="_task.TaskName" />
+		<br/>
+		<label for="txtDescription">Descripción de la nueva tarea :</label>
+		<InputText id="txtDescription" @bind-Value="_task.DescriptionTask" />
+		<br/>
+		<label for="chkDone">Está realizada?</label>
+		<InputCheckbox id="chkDone" @bind-Value="_task.Done" />
+		<br/>
+		<button type="submit">Submit</button>
+	</EditForm>
 </div>
 
 
@@ -34,15 +44,3 @@
 	   }
 	</ul>
 </div>
-
-
-<EditForm Model="@_task" OnValidSubmit="@HandleValidSubmitAsync">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <InputText id="name" @bind-Value="_task.TaskName" />
-    <InputText id="description" @bind-Value="_task.DescriptionTask" />
-    <InputCheckbox id="done" @bind-Value="_task.Done" />
-
-    <button type="submit">Submit</button>
-</EditForm>

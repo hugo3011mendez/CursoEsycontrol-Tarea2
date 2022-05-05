@@ -10,7 +10,7 @@ using TaskManager.Shared;
 namespace TaskManager.Server.Controllers
 {
     [ApiController]
-    [Route("[todoTask]")]
+    [Route("[controller] /[action]")]
     public class ToDoTaskController : Controller
     {
         private readonly ToDoDbContext _toDoDbContext;
