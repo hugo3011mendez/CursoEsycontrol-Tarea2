@@ -17,29 +17,6 @@ namespace TaskManager.Server.Controllers
         public ToDoTaskController(ToDoDbContext todoDbContext) => _toDoDbContext = todoDbContext; // Constructor del controlador
 
         [HttpGet]
-        public IActionResult GetAll() // Consigue todas las tareas
-        {
-            var query = _toDoDbContext.Todos; // Realizo la query correspondiente
-
-            return Ok(query.ToList()); // Devuelve el resultado de la ejecución de la query
-        }
-
-
-        [HttpGet("(id)")]
-        public IActionResult Get(Guid id) // Busca una tarea por su ID
-        {
-            var task = _toDoDbContext.Todos.FirstOrDefault(x => x.Id == id); // Consigue la tarea buscada
-
-            if(task is null) // Compruebo si se ha encontrado la tarea buscada
-            {
-                return NotFound(); // En caso negativo, devuelvo un NotFound()
-            }
-
-            return Ok(task); // Si se ha encontrado la tarea, devuelvo el resultado de la ejecución de la query
-        }
-
-
-        [HttpGet]
         public IActionResult Finished() // Obtiene las tareas realizadas
         {
             var query = _toDoDbContext.Todos.Where(x => x.Done == true); // Monto la query correspondiente
@@ -54,6 +31,20 @@ namespace TaskManager.Server.Controllers
             var query = _toDoDbContext.Todos.Where(x => x.Done == false); // Monto la query correspondiente
 
             return Ok(query.ToList()); // Devuelvo el resultado de la ejecución de la query
+        }
+
+
+        [HttpGet("(id)")]
+        public IActionResult Get(Guid id) // Busca una tarea por su ID
+        {
+            var task = _toDoDbContext.Todos.FirstOrDefault(x => x.Id == id); // Consigue la tarea buscada
+
+            if (task is null) // Compruebo si se ha encontrado la tarea buscada
+            {
+                return NotFound(); // En caso negativo, devuelvo un NotFound()
+            }
+
+            return Ok(task); // Si se ha encontrado la tarea, devuelvo el resultado de la ejecución de la query
         }
 
 
@@ -85,33 +76,33 @@ namespace TaskManager.Server.Controllers
 
             var now = DateTime.Now; // Establezco la fecha del momento actual
 
-            if(newTask.Id == Guid.Empty) // Compruebo si la ID de la tarea buscada está vacía
+            if (newTask.Id == Guid.Empty) // Compruebo si la ID de la tarea buscada está vacía
             {
-                _toDoDbContext.Todos.Add(newTask); // Y en ese caso, la añado al context para que le proporcione una ID
+                newTask.TimeStamp = now;
+                _ = _toDoDbContext.Todos.Add(newTask); // Y en ese caso, la añado al context para que le proporcione una ID
             }
             else // Si la tarea ya tiene ID, significa que vamos a actualizarla
             {
                 // Consigo los datos guardados en la BBDD de la misma tarea
                 var dbTask = _toDoDbContext.Todos.FirstOrDefault(x => x.Id == newTask.Id);
-                if(dbTask is null) // Compruebo si la tarea está vacía
+                if (dbTask is null) // Compruebo si la tarea está vacía
                 {
-                    _ = _toDoDbContext.Todos.Add(newTask); // Y en ese caso la añado al context
+                    newTask.TimeStamp = now; // Y en ese caso la añado al context
+                    _ = _toDoDbContext.Todos.Add(newTask);
                 }
                 else // Si la tarea a actualizar no está vacía
                 {
                     // Compruebo si la tarea no ha sido actualizada por otro mientras se realizaba esta actualización
                     if (dbTask.TimeStamp > newTask.TimeStamp)
                     {
-                        return BadRequest("The entity is won't be updated"); // Y en ese caso, devuelvo un error y no la actualizo
+                        return BadRequest("The entity won't be updated"); // Y en ese caso, devuelvo un error y no la actualizo
                     }
 
                     // Asigno sus valores de la BBDD a las propiedades de tarea actualizada
                     dbTask.TaskName = newTask.TaskName;
                     dbTask.DescriptionTask = newTask.DescriptionTask;
                     dbTask.Done = newTask.Done;
-                    dbTask.TimeStamp = now;
-
-                    newTask.TimeStamp = dbTask.TimeStamp; // Y actualizo el timestamp de la tarea actualizada
+                    dbTask.TimeStamp = now; // Y actualizo el timestamp de la tarea actualizada
                 }
             }
             _ = _toDoDbContext.SaveChanges(); // Finalmente, guardo los cambios

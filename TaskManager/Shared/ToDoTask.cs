@@ -20,6 +20,8 @@ namespace TaskManager.Shared
 
 		public DateTime TimeStamp { get; set; } = DateTime.Now; // Fecha que indica cuándo ha sido creada o actualizada
 
+		public Guid ParentID { get; set; } // ID de su tarea padre, puede ser null o vacío
+
 		public ToDoTask() { } // Constructor vacío
 	}
 }
