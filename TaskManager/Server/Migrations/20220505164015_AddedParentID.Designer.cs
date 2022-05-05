@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TaskManager.Server.Infraestructure;
+using TaskManager.Server.Infrastructure;
 
 namespace TaskManager.Server.Migrations
 {
-    [DbContext(typeof(ToDoDbContext))]
-    [Migration("20220504112655_timestamps")]
-    partial class timestamps
+    [DbContext(typeof(TodoDbContext))]
+    [Migration("20220505164015_AddedParentID")]
+    partial class AddedParentID
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,25 +21,25 @@ namespace TaskManager.Server.Migrations
                 .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TaskManager.Shared.ToDoTask", b =>
+            modelBuilder.Entity("TaskManager.Shared.Todo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DescriptionTask")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Done")
                         .HasColumnType("bit");
 
-                    b.Property<int>("TaskID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TaskName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("TimeStamp")
+                    b.Property<Guid>("ParentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

@@ -5,20 +5,16 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TaskManager.Shared;
 
-
 namespace TaskManager.Client.Pages
 {
-    public partial class Index // Aquí podemos poner el código dentro de la parte @code en Index
+    public partial class Index : ComponentBase
     {
-		[Inject] public HttpClient HttpClient { get; set; } // Cliente HTTP
+        [Inject] public HttpClient HttpClient { get; set; }
 
-		private List<ToDoTask> _pendingTasks { get; set; } = new(); // Lista de tareas pendientes
-		private List<ToDoTask> _finishedTasks { get; set; } = new(); // Lista de tareas realizadas
+        private List<Todo> _pendingTasks = new(); // Lista donde recoger las tareas pendientes
+        private List<Todo> _finishedTasks = new(); // Lista donde recoger las tareas finalizadas
 
-        private ToDoTask _task = new(); // Una nueva tarea vacía, para subir sus datos a la BBDD cuando se añada
-
-
-        // Consigue las tareas pendientes y las tareas realizadas, y las guarda en las listas anteriormente declaradas
+        // Carga las tareas pendientes y finalizadas en sus correspondientes listas
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -27,46 +23,34 @@ namespace TaskManager.Client.Pages
             await LoadPendingTodosAsync();
         }
 
-        // Consigue las tareas pendientes conectándose a la BBDD, y las guarda en su lista previamente declarada
+        // Carga las tareas pendientes en su lista correspondiente, _pendingTasks
         private async Task LoadPendingTodosAsync()
         {
-            var pendingResponse = await HttpClient.GetAsync("todo/pending");
+            var pendingResponse = await HttpClient.GetAsync("todo/pending"); // Realiza la consulta pertinente a la BBDD
 
-            if (pendingResponse.IsSuccessStatusCode) // Si la respuesta es correcta y se obtienen los datos
+            if (pendingResponse.IsSuccessStatusCode) // Si la petición resulta satisfactoria
             {
-                string content = await pendingResponse.Content.ReadAsStringAsync(); // Consigo los datos como JSON
+                // Consigo el contenido de la consulta en JSON
+                string content = await pendingResponse.Content.ReadAsStringAsync();
 
-                // Deserializo los datos JSON y los convierto a Lista de ToDoTask
-                _pendingTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
+                // Deserializo la info JSON y la meto en su lista correspondiente
+                _pendingTasks = JsonConvert.DeserializeObject<List<Todo>>(content);
             }
         }
 
-        // Consigue las tareas realizadas conectándose a la BBDD, y las guarda en su lista previamente declarada
+        // Carga las tareas finalizadas en su lista correspondiente, _finishedTasks
         private async Task LoadFinishedTodosAsync()
         {
-            var finishedResponse = await HttpClient.GetAsync("todo/finished");
+            var finishedResponse = await HttpClient.GetAsync("todo/finished"); // Realiza la consulta pertinente a la BBDD
 
-            if (finishedResponse.IsSuccessStatusCode) // Si la respuesta es correcta y se obtienen los datos
+            if (finishedResponse.IsSuccessStatusCode) // Si la consulta resulta satisfactoria
             {
-                string content = await finishedResponse.Content.ReadAsStringAsync(); // Consigo los datos como JSON
+                // Consigo el contenido del resultado en formato JSON
+                string content = await finishedResponse.Content.ReadAsStringAsync();
 
-                // Deserializo los datos JSON y los convierto a Lista de ToDoTask
-                _finishedTasks = JsonConvert.DeserializeObject<List<ToDoTask>>(content);
+                // Deserializo la info JSON y la meto en su lista correspondiente
+                _finishedTasks = JsonConvert.DeserializeObject<List<Todo>>(content);
             }
         }
-
-        // Llama al controlador para que añada la nueva tarea a la BBDD
-        private async Task HandleValidSubmitAsync()
-        {
-            string content = JsonConvert.SerializeObject(_task); // Convierte el objeto en JSON
-
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(content);
-            var byteContent = new ByteArrayContent(buffer);
-
-            // Para indicar que es contenido JSON
-            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-            await HttpClient.PostAsync("todo/update", byteContent); // Llama al método Update() del controlador
-        }
-	}
+    }
 }

@@ -1,46 +1,33 @@
-﻿@using TaskManager.Shared;
+﻿@page "/"
 @inherits ComponentBase
-@page "/"
+@using Microsoft.AspNetCore.Components.Web
 
-<h3>TaskManager</h3>
+<h1>Task Manager</h1>
 
-@* Contenedor donde va a ir la caja de texto para insertar una nueva tarea *@
-<div class="container border border-primary p-3">
-	<EditForm Model="@_task" OnValidSubmit="@HandleValidSubmitAsync">
-		<DataAnnotationsValidator />
-		<ValidationSummary />
-
-		<label for="txtName">Nombre de la nueva tarea :</label>
-		<InputText id="txtName" @bind-Value="_task.TaskName" />
-		<br/>
-		<label for="txtDescription">Descripción de la nueva tarea :</label>
-		<InputText id="txtDescription" @bind-Value="_task.DescriptionTask" />
-		<br/>
-		<label for="chkDone">Está realizada?</label>
-		<InputCheckbox id="chkDone" @bind-Value="_task.Done" />
-		<br/>
-		<button type="submit">Añadir nueva tarea</button>
-	</EditForm>
-</div>
-
+<h2><a href="/edit">Añadir Tarea</a></h2> @* Enlace a la página para crear o editar una tarea *@
 
 @* Contenedor para las tareas pendientes *@
-<div class="container border-2">
-	<ul>
-		@foreach (var task in _pendingTasks)
-	   {
-		<li>@task.TaskName</li>
-	   }
-	</ul>
+<div class="container border border-primary p-3">
+    <h3>Tareas pendientes</h3>
+    <div class="container border-2">
+        <ul>
+            @foreach (var task in _pendingTasks)
+            {
+                <li>@task.Name - @task.Description <a href="/edit/@task.Id">Editar</a></li>
+            }
+        </ul>
+    </div>
 </div>
 
-
 @* Contenedor para las tareas realizadas *@
-<div class="container border-2">
-	<ul>
-		@foreach (var task in _finishedTasks)
-	   {
-		<li>@task.TaskName</li>
-	   }
-	</ul>
+<div class="container border border-primary p-3">
+    <h3>Tareas finalizadas</h3>
+    <div class="container border-2">
+        <ul>
+            @foreach (var task in _finishedTasks)
+            {
+                <li>@task.Name - @task.Description  <a href="/edit/@task.Id">Editar</a></li>
+            }
+        </ul>
+    </div>
 </div>

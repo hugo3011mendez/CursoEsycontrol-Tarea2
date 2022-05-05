@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TaskManager.Server.Infraestructure;
+using TaskManager.Server.Infrastructure;
 
 namespace TaskManager.Server.Migrations
 {
-    [DbContext(typeof(ToDoDbContext))]
-    [Migration("20220505112040_sinInt")]
-    partial class sinInt
+    [DbContext(typeof(TodoDbContext))]
+    [Migration("20220504091305_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,23 +21,20 @@ namespace TaskManager.Server.Migrations
                 .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TaskManager.Shared.ToDoTask", b =>
+            modelBuilder.Entity("TaskManager.Shared.Todo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DescriptionTask")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Done")
                         .HasColumnType("bit");
 
-                    b.Property<string>("TaskName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

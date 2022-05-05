@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskManager.Server.Migrations
 {
-    public partial class ParentID : Migration
+    public partial class AddedParentID : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

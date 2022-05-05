@@ -1,14 +1,14 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace TaskManager.Server.Migrations
 {
-    public partial class timestamps : Migration
+    public partial class Timestamp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "TimeStamp",
+            _ = migrationBuilder.AddColumn<DateTime>(
+                name: "Timestamp",
                 table: "Todos",
                 type: "datetime2",
                 nullable: false,
@@ -17,8 +17,8 @@ namespace TaskManager.Server.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "TimeStamp",
+            _ = migrationBuilder.DropColumn(
+                name: "Timestamp",
                 table: "Todos");
         }
     }
