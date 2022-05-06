@@ -9,7 +9,7 @@
     <h3>Tareas pendientes</h3>
     <div class="container border-2">
         <ul>
-            @foreach (var task in _pendingTasks) @* Ver por qué no carga la info *@
+            @foreach (var task in _pendingTasks)
             {
                 <li>@task.Name - @task.Description <a href="/edit/@task.Id">Editar</a></li>
             }
@@ -22,7 +22,7 @@
     <h3>Tareas finalizadas</h3>
     <div class="container border-2">
         <ul>
-            @foreach (var task in _finishedTasks) @* Ver por qué no carga la info *@
+            @foreach (var task in _finishedTasks)
             {
                 <li>@task.Name - @task.Description  <a href="/edit/@task.Id">Editar</a></li>
             }
