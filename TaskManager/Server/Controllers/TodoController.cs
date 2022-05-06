@@ -17,7 +17,7 @@ namespace TaskManager.Server.Controllers
         [HttpGet]
         public IActionResult Finished() // Consulta que devuelve las tareas finalizadas
         {
-            var query = _todoDbContext.Todos.Where(x => x.Done == true); // Armo la query
+            var query = _todoDbContext.Todos.Where(x => x.Done == true && x.ParentID == Guid.Empty); // Armo la query
 
             return Ok(query.ToList()); // Ejecuto la query y devuelvo su resultado como lista
         }
@@ -25,10 +25,30 @@ namespace TaskManager.Server.Controllers
         [HttpGet]
         public IActionResult Pending() // Consulta que devuelve las tareas pendientes
         {
-            var query = _todoDbContext.Todos.Where(x => x.Done == false); // Armo la query
+            var query = _todoDbContext.Todos.Where(x => x.Done == false && x.ParentID == Guid.Empty); // Armo la query
 
             return Ok(query.ToList()); // Y devuelvo su resultado como lista
         }
+
+
+        // Devuelve las subtareas finalizadas, según la ID de su padre
+        [HttpGet("{id}")]
+        public IActionResult FinishedSubTasks(Guid ID)
+        {
+            var query = _todoDbContext.Todos.Where(x => x.Done == true && x.ParentID == ID); // Armo la query
+
+            return Ok(query.ToList()); // Ejecuto la query y devuelvo su resultado como lista
+        }
+
+        // Devuelve las subtareas pendientes, según la ID de su padre
+        [HttpGet("{id}")]
+        public IActionResult PendingSubTasks(Guid ID)
+        {
+            var query = _todoDbContext.Todos.Where(x => x.Done == false && x.ParentID == ID); // Armo la query
+
+            return Ok(query.ToList()); // Y devuelvo su resultado como lista
+        }
+
 
         [HttpGet("{id}")]
         public IActionResult Get(Guid id) // Consulta que consigue una tarea por su ID

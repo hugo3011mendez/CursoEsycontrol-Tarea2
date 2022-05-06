@@ -14,6 +14,9 @@ namespace TaskManager.Client.Pages
         private List<Todo> _pendingTasks = new(); // Lista donde recoger las tareas pendientes
         private List<Todo> _finishedTasks = new(); // Lista donde recoger las tareas finalizadas
 
+        private List<Todo> _pendingSubTasks = new(); // Lista donde recoger las subtareas pendientes
+        private List<Todo> _finishedSubTasks = new(); // Lista donde recoger las subtareas finalizadas
+
         // Carga las tareas pendientes y finalizadas en sus correspondientes listas
         protected override async Task OnInitializedAsync()
         {
@@ -54,5 +57,6 @@ namespace TaskManager.Client.Pages
         }
 
         // TODO : Mostrar la info de las subtareas, cuando se clicke en una tarea
+        
     }
 }
