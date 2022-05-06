@@ -52,5 +52,7 @@ namespace TaskManager.Client.Pages
                 _finishedTasks = JsonConvert.DeserializeObject<List<Todo>>(content);
             }
         }
+
+        // TODO : Mostrar la info de las subtareas, cuando se clicke en una tarea
     }
 }
