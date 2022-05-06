@@ -32,7 +32,8 @@ namespace TaskManager.Client.Pages
 
         private async Task LoadTodoAsync() // Carga la info de la tarea pasada a esta página
         {
-            var todoResponse = await HttpClient.GetAsync($"todo/get/{Id}"); // Realizo la petición a la BBDD
+            // Realiza la consulta pertinente al controlador, función Get(id)
+            var todoResponse = await HttpClient.GetAsync($"todo/get/{Id}");
 
             if (todoResponse.IsSuccessStatusCode) // Si la petición resulta satisfactoria
             {
@@ -54,7 +55,8 @@ namespace TaskManager.Client.Pages
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json"); // Añado la cabecera al JSON
 
-            _ = await HttpClient.PostAsync("todo/update", byteContent); // Realizo una petición a la BBDD con la info
+            // Realiza la consulta pertinente al controlador, función Update()
+            _ = await HttpClient.PostAsync("todo/update", byteContent);
 
             _todo = new(); // Termino creanddo otra instancia vacía de la tarea anteriormente creada
 
