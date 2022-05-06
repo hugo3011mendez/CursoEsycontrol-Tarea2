@@ -14,6 +14,7 @@
                 <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
                 <br/>
                 <a href="/edit/@task.Id">Editar</a>
+                <a href="/edit/@task.Id">Añadir Subtarea</a>
             }
         </ul>
     </div>
@@ -26,12 +27,43 @@
         <ul>
             @foreach (var task in _finishedTasks)
             {
-                <li>@task.Name - @task.Description</li>
+                <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
                 <br/>
                 <a href="/edit/@task.Id">Editar</a>
+                <a href="/edit/@task.Id">Añadir Subtarea</a>
             }
         </ul>
     </div>
 </div>
 
 @* TODO : Mostrar la info de las subtareas, cuando se clicke en una tarea *@
+
+@* Contenedor para las subtareas pendientes *@
+<div class="container col-5 border rounded border-primary p-3 ml-3 d-inline-block">
+    <h3>Tareas pendientes</h3>
+    <div class="container border-2">
+        <ul>
+            @foreach (var subtask in _pendingSubTasks)
+            {
+                <li>@subtask.Name - @subtask.Description</li>
+                <br/>
+                <a href="/edit/@subtask.Id">Editar</a>
+            }
+        </ul>
+    </div>
+</div>
+
+@* Contenedor para las subtareas realizadas *@
+<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block">
+    <h3>Tareas finalizadas</h3>
+    <div class="container border-2">
+        <ul>
+            @foreach (var subtask in _finishedSubTasks)
+            {
+                <li>@subtask.Name - @subtask.Description</li>
+                <br/>
+                <a href="/edit/@subtask.Id">Editar</a>
+            }
+        </ul>
+    </div>
+</div>
