@@ -1,5 +1,6 @@
 ﻿@page "/edit"
 @page "/edit/{id:guid}"
+@page "/edit/{id:guid}/{hijo:bool}"
 
 @if (_todo is null || _todo.Id == Guid.Empty) // Compruebo si la ID de la tarea pasada está vacía
 {
@@ -16,10 +17,10 @@ else
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        <p>Nombre de la Tarea</p>
+        <p>Nombre de la @_texto</p>
         <InputText @bind-Value="_todo.Name" />
         <br />
-        <p>Descripción de la Tarea</p>
+        <p>Descripción de la @_texto</p>
         <InputText @bind-Value="_todo.Description" />
         <br />
         <p>Finalizada?</p>

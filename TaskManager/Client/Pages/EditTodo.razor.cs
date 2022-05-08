@@ -18,15 +18,30 @@ namespace TaskManager.Client.Pages
         // ID de la tarea correspondiente
         [Parameter] public Guid Id { get; set; }
 
+        // Booleana indicando si se creará una subtarea
+        [Parameter] public bool Hijo { get; set; }
+
+
         private Todo _todo = new(); // Creo una nueva tarea vacía
+
+        private string _texto = ""; // Para la info que se mostrará en pantalla
 
         protected override async Task OnParametersSetAsync() // Compruebo el parámetro de la tarea pasada
         {
             await base.OnParametersSetAsync();
 
-            if (Id != Guid.Empty) // Compruebo que la ID de la tarea pasada no esté vacía
+            if (Id != Guid.Empty && Hijo != true) // Compruebo que la ID de la tarea pasada no esté vacía, y que no sea una subtarea
             {
                 await LoadTodoAsync(); // En ese caso, ejecuto la función que carga la tarea en cuestión
+                _texto = "Tarea";
+            }
+            else if(Hijo == true) // Si es una subtarea
+            {
+                _texto = "Subtarea";
+            }
+            else // Si es una tarea padre a editar
+            {
+                _texto = "Tarea";
             }
         }
 
