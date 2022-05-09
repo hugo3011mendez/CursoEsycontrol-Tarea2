@@ -47,6 +47,10 @@ namespace TaskManager.Client.Pages
                     }
                 }
             }
+            else // En el caso de que se quiera añadir una nueva tarea
+            {
+                _texto = "Tarea";
+            }
         }
 
         private async Task LoadTodoAsync() // Carga la info de la tarea pasada a esta página

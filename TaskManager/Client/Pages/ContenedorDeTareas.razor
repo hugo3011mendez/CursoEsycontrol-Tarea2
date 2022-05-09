@@ -17,7 +17,6 @@ else
             {
                 // Muestro cada tarea, con una función indicando sus acciones cuando se clicke
                 <li @onclick="()=> OnClickFunction.InvokeAsync(task.Id)">@task.Name - @task.Description</li>
-                <br/>
 
                 // Muestro el primer botón, que se creará siempre
                 <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id">Editar</a></button>
