@@ -4,52 +4,16 @@
 
 <h1>Task Manager</h1>
 
+@* TODO : Encontrar el fallo a la hora de pasar el parámetro *@
+
 @* Contenedor para las tareas pendientes *@
-<ContenedorDeTareas Header="Tareas Pendientes" TaskList="@_pendingTasks" OnClickFunction="TodoOnClick" MasDeUnBoton="@true"></ContenedorDeTareas>
+<ContenedorDeTareas Header="Tareas Pendientes" TaskList="@_pendingTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@true"></ContenedorDeTareas>
 
 @* Contenedor para las tareas realizadas *@
-<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block">
-    <h3>Tareas finalizadas</h3>
-    <div class="container border-2">
-        <ul>
-            @foreach (var task in _finishedTasks)
-            {
-                <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
-                <br/>
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id">Editar</a></button>
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>               
-            }
-        </ul>
-    </div>
-</div>
-
+<ContenedorDeTareas Header="Tareas Finalizadas" TaskList="@_finishedTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@true"></ContenedorDeTareas>
 
 @* Contenedor para las subtareas pendientes *@
-<div class="container col-5 border rounded border-primary p-3 ml-3 d-inline-block">
-    <h3>SubTareas pendientes</h3>
-    <div class="container border-2">
-        <ul>
-            @foreach (var subtask in _pendingSubTasks)
-            {
-                <li>@subtask.Name - @subtask.Description</li>
-                <br/>
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@subtask.Id/@true">Editar</a></button>
-            }
-        </ul>
-    </div>
-</div>
+<ContenedorDeTareas Header="Subtareas Pendientes" TaskList="@_pendingSubTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@false"></ContenedorDeTareas>
 
 @* Contenedor para las subtareas realizadas *@
-<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block">
-    <h3>SubTareas finalizadas</h3>
-    <div class="container border-2">
-        <ul>
-            @foreach (var subtask in _finishedSubTasks)
-            {
-                <li>@subtask.Name - @subtask.Description</li>
-                <br/>
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@subtask.Id/@true">Editar</a></button>
-            }
-        </ul>
-    </div>
-</div>
+<ContenedorDeTareas Header="Subtareas Finalizadas" TaskList="@_finishedSubTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@false"></ContenedorDeTareas>
