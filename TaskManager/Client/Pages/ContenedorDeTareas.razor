@@ -1,13 +1,22 @@
-﻿<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block">
-    <h3>Tareas finalizadas</h3>
+﻿@using TaskManager.Shared
+
+<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block">
+    <h3>@Header</h3>
     <div class="container border-2">
         <ul>
-            @foreach (var task in TaskList)
+            @foreach (var task in TaskList) // Recorro la lista pasada como parámetro
             {
-                <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
+                // Muestro cada tarea, con una función indicando sus acciones cuando se clicke
+                <li @onclick="()=> OnClickFunction.InvokeAsync(task.Id)">@task.Name - @task.Description</li>
                 <br/>
+
+                // Muestro el primer botón, que se creará siempre
                 <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id">Editar</a></button>
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>               
+                @if (@MasDeUnBoton) // Si el parámetro booleano está a true
+               {
+                // Añado el segundo botón
+                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>                                  
+               }
             }
         </ul>
     </div>
@@ -16,6 +25,7 @@
 
 @code {
     [Parameter] public String Header { set; get; } // Establezco un parámetro para el título del componente
-    [Parameter] public List<String> TaskList { set; get; } = new(); // Establezco un parámetro para la lista a mostrar
-
+    [Parameter] public List<Todo> TaskList { set; get; } = new(); // Establezco un parámetro para la lista a mostrar
+    [Parameter] public EventCallback OnClickFunction { get; set; } // Para poder pasarle la función a realizar en el OnClick
+    [Parameter] public bool MasDeUnBoton { get; set; } // Booleana indicando si debemos añadir los 2 botones
 }

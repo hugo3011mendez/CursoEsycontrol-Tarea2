@@ -5,20 +5,7 @@
 <h1>Task Manager</h1>
 
 @* Contenedor para las tareas pendientes *@
-<div class="container col-5 border rounded border-primary p-3 ml-3 d-inline-block">
-    <h3>Tareas pendientes</h3>
-    <div class="container border-2">
-        <ul>
-            @foreach (var task in _pendingTasks)
-            {
-                <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
-                <br/>
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id">Editar</a></button>
-                <button type="button" class="btn btn-info"><a  class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>               
-            }
-        </ul>
-    </div>
-</div>
+<ContenedorDeTareas Header="Tareas Pendientes" TaskList="@_pendingTasks" OnClickFunction="TodoOnClick" MasDeUnBoton="@true"></ContenedorDeTareas>
 
 @* Contenedor para las tareas realizadas *@
 <div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block">
@@ -36,7 +23,6 @@
     </div>
 </div>
 
-@* TODO : Mostrar la info de las subtareas, cuando se clicke en una tarea *@
 
 @* Contenedor para las subtareas pendientes *@
 <div class="container col-5 border rounded border-primary p-3 ml-3 d-inline-block">
