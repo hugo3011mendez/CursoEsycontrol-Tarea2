@@ -14,7 +14,7 @@
                 <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
                 <br/>
                 <a href="/edit/@task.Id">Editar</a>
-                <a href="/edit/@task.Id">Añadir Subtarea</a>
+                <a href="/edit/@task.Id/@true">Añadir Subtarea</a>
             }
         </ul>
     </div>
@@ -47,7 +47,7 @@
             {
                 <li>@subtask.Name - @subtask.Description</li>
                 <br/>
-                <a href="/edit/@subtask.Id">Editar</a>
+                <a href="/edit/@subtask.Id/@true">Editar</a>
             }
         </ul>
     </div>
@@ -62,7 +62,7 @@
             {
                 <li>@subtask.Name - @subtask.Description</li>
                 <br/>
-                <a href="/edit/@subtask.Id">Editar</a>
+                <a href="/edit/@subtask.Id/@true">Editar</a>
             }
         </ul>
     </div>

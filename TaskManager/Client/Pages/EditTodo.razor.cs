@@ -30,18 +30,18 @@ namespace TaskManager.Client.Pages
         {
             await base.OnParametersSetAsync();
 
-            if (Id != Guid.Empty && Hijo != true) // Compruebo que la ID de la tarea pasada no esté vacía, y que no sea una subtarea
+            if (Id != Guid.Empty && Hijo != true) // Compruebo que sea una tarea con datos
             {
                 await LoadTodoAsync(); // En ese caso, ejecuto la función que carga la tarea en cuestión
                 _texto = "Tarea";
             }
-            else if(Hijo == true) // Si es una subtarea
+            else if(Hijo == true) // Si es una subtarea a crear
             {
                 _texto = "Subtarea";
-            }
-            else // Si es una tarea padre a editar
-            {
-                _texto = "Tarea";
+                if(Id != Guid.Empty)
+                {
+                    await LoadTodoAsync(); // En ese caso, ejecuto la función que carga la tarea en cuestión
+                }
             }
         }
 
@@ -64,6 +64,11 @@ namespace TaskManager.Client.Pages
 
         private async Task HandleValidSubmitAsync() // Maneja el evento submit del formulario para crear o editar una tarea
         {
+            if(Hijo == true && Id != _todo.ParentID) // Compruebo que, en el caso que queramos crear una subtarea
+            {
+                _todo.ParentID = Id; // Establecer su campo ParentID
+            }
+
             string content = JsonConvert.SerializeObject(_todo); // Convierto la tarea en JSON
 
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(content);
