@@ -38,9 +38,13 @@ namespace TaskManager.Client.Pages
             else if(Hijo == true) // Si es una subtarea a crear
             {
                 _texto = "Subtarea";
-                if(Id != Guid.Empty)
+                if(Id != Guid.Empty) // En el caso de ser una subtarea a editar
                 {
                     await LoadTodoAsync(); // En ese caso, ejecuto la función que carga la tarea en cuestión
+                    if (Id == _todo.Id) // Compruebo que no haya cargado la Tarea, en vez de la Subtarea
+                    {
+                        _todo = new();
+                    }
                 }
             }
         }

@@ -13,8 +13,8 @@
             {
                 <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
                 <br/>
-                <a href="/edit/@task.Id">Editar</a>
-                <a href="/edit/@task.Id/@true">Añadir Subtarea</a>
+                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id">Editar</a></button>
+                <button type="button" class="btn btn-info"><a  class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>               
             }
         </ul>
     </div>
@@ -29,8 +29,8 @@
             {
                 <li @onclick="()=>TodoOnClick(task.Id)">@task.Name - @task.Description</li>
                 <br/>
-                <a href="/edit/@task.Id">Editar</a>
-                <a href="/edit/@task.Id/@true">Añadir Subtarea</a>
+                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id">Editar</a></button>
+                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>               
             }
         </ul>
     </div>
@@ -47,7 +47,7 @@
             {
                 <li>@subtask.Name - @subtask.Description</li>
                 <br/>
-                <a href="/edit/@subtask.Id/@true">Editar</a>
+                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@subtask.Id/@true">Editar</a></button>
             }
         </ul>
     </div>
@@ -62,7 +62,7 @@
             {
                 <li>@subtask.Name - @subtask.Description</li>
                 <br/>
-                <a href="/edit/@subtask.Id/@true">Editar</a>
+                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@subtask.Id/@true">Editar</a></button>
             }
         </ul>
     </div>

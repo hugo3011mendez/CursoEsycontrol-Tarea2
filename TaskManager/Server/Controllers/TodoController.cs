@@ -115,7 +115,6 @@ namespace TaskManager.Server.Controllers
                     dbTodo.Description = newTodo.Description;
                     dbTodo.Done = newTodo.Done;
                     dbTodo.Timestamp = now;
-                    // TODO : Implementar para establecer también el ParentID
                 }
             }
 
