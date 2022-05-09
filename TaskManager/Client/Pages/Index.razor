@@ -5,13 +5,17 @@
 <h1>Task Manager</h1>
 
 @* Contenedor para las tareas pendientes *@
-<ContenedorDeTareas Header="Tareas Pendientes" TaskList="@_pendingTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@true"></ContenedorDeTareas>
+<ContenedorDeTareas Header="Tareas Pendientes" TaskList="@_pendingTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@true" Visibilidad="@true">
+</ContenedorDeTareas>
 
 @* Contenedor para las tareas realizadas *@
-<ContenedorDeTareas Header="Tareas Finalizadas" TaskList="@_finishedTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@true"></ContenedorDeTareas>
+<ContenedorDeTareas Header="Tareas Finalizadas" TaskList="@_finishedTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@true" Visibilidad="@true">
+</ContenedorDeTareas>
 
 @* Contenedor para las subtareas pendientes *@
-<ContenedorDeTareas Header="Subtareas Pendientes" TaskList="@_pendingSubTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@false"></ContenedorDeTareas>
+<ContenedorDeTareas Header="Subtareas Pendientes" TaskList="@_pendingSubTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@false" Visibilidad="@_subtaskVisibility">
+</ContenedorDeTareas>
 
 @* Contenedor para las subtareas realizadas *@
-<ContenedorDeTareas Header="Subtareas Finalizadas" TaskList="@_finishedSubTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@false"></ContenedorDeTareas>
+<ContenedorDeTareas Header="Subtareas Finalizadas" TaskList="@_finishedSubTasks" OnClickFunction="@TodoOnClick" MasDeUnBoton="@false" Visibilidad="@_subtaskVisibility">
+</ContenedorDeTareas>

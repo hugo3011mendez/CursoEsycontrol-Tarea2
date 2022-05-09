@@ -1,6 +1,15 @@
 ﻿@using TaskManager.Shared
 
-<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block">
+@if (!Visibilidad) // Compruebo si el contenedor debe ser visible según el parámetro, y establezco los estilos a aplicar
+{
+    _estiloVisibilidad = "visibility:hidden";
+}
+else
+{
+    _estiloVisibilidad = "visibility:visible";
+}
+
+<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block" style="@_estiloVisibilidad"> @* Le aplico el estilo mediante la variable privada *@
     <h3>@Header</h3>
     <div class="container border-2">
         <ul>
@@ -15,7 +24,7 @@
                 @if (@MasDeUnBoton) // Si el parámetro booleano está a true
                {
                 // Añado el segundo botón
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>                                  
+                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>                           
                }
             }
         </ul>
@@ -28,4 +37,7 @@
     [Parameter] public List<Todo> TaskList { set; get; } = new(); // Establezco un parámetro para la lista a mostrar
     [Parameter] public EventCallback<Guid> OnClickFunction { get; set; } // Para poder pasarle la función a realizar en el OnClick
     [Parameter] public bool MasDeUnBoton { get; set; } // Booleana indicando si debemos añadir los 2 botones
+    [Parameter] public bool Visibilidad { get; set; } // Booleana indicando si el contenedor va a ser visible
+
+    private string _estiloVisibilidad = ""; // Cadena para insertar los estilos al container
 }

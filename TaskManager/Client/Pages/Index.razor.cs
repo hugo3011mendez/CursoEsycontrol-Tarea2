@@ -18,6 +18,8 @@ namespace TaskManager.Client.Pages
         private List<Todo> _pendingSubTasks = new(); // Lista donde recoger las subtareas pendientes
         private List<Todo> _finishedSubTasks = new(); // Lista donde recoger las subtareas finalizadas
 
+        private bool _subtaskVisibility = false; // Booleano para indicar la visibilidad de los contenedores para las subtareas
+
 
         // Carga las tareas pendientes y finalizadas en sus correspondientes listas
         protected override async Task OnInitializedAsync()
@@ -67,6 +69,8 @@ namespace TaskManager.Client.Pages
             // Llamo a las funciones para que carguen las subtareas de la tarea clickada
             await LoadPendingSubtasksAsync(IDParent);
             await LoadFinishedSubtasksAsync(IDParent);
+
+            _subtaskVisibility = true; // Actualizo la booleana para que se muestren los contenedores
         }
 
         // Establece la lista de subtareas pendientes de la tarea clickada
