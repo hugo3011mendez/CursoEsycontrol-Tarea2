@@ -4,11 +4,26 @@
 
 @if (_todo is null || _todo.Id == Guid.Empty) // Compruebo si la ID de la tarea pasada está vacía
 {
-    <h1>Nueva tarea</h1> // Si está vacía, muestro este título
+    if (Hijo)
+    {
+        <h1>Nueva subtarea</h1> // Si está vacía, muestro este título        
+    }
+    else
+    {
+        <h1>Nueva tarea</h1> // Si está vacía, muestro este título        
+    }
 }
 else
 {
-    <h1>Editando tarea</h1> // Si no está vacía, muestro este otro título
+    if (Hijo)
+    {
+        <h1>Editando subtarea</h1>
+        // Si no está vacía, muestro este otro título
+    }
+    else
+    {
+        <h1>Editando tarea</h1> // Si no está vacía, muestro este otro título
+    }
 }
 
 @* Contenedor para añadir o editar una tarea *@
