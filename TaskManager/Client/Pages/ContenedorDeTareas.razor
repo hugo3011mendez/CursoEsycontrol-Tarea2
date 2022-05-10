@@ -45,11 +45,11 @@ else
                                 <li @onclick="()=> OnClickFunction.InvokeAsync(task.Id)">@task.Name - @task.Description</li>
 
                                 // Muestro el primer botón, que se creará siempre
-                                <button type="button"><a href="/edit/@task.Id">Editar</a></button>
+                                <button type="button"><a style="text-decoration:none; color:inherit;" href="/edit/@task.Id">Editar</a></button>
                                 @if (@MasDeUnBoton) // Si el parámetro booleano está a true
                                 {
                                     // Añado el segundo botón
-                                    <button type="button" class="btn btn-primary btn-lg btn3d"><a href="/edit/@task.Id/@true">Añadir Subtarea</a></button>
+                                    <button type="button" class="btn btn-primary btn-lg btn3d"><a style="text-decoration:none; color:inherit;" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>
                                 }
                             }
                         </ul>
