@@ -9,25 +9,23 @@ else
     _estiloVisibilidad = "visibility:visible";
 }
 
-<div class="container col-5 rounded border border-primary p-3 ml-3 d-inline-block" style="@_estiloVisibilidad"> @* Le aplico el estilo mediante la variable privada *@
+<div class="container col-5 p-3 ml-3 d-inline-block" style="@_estiloVisibilidad"> @* Le aplico el estilo mediante la variable privada *@
     <h3>@Header</h3>
-    <div class="container border-2">
-        <ul>
+        <ul class="list-group">
             @foreach (var task in TaskList) // Recorro la lista pasada como parámetro
             {
                 // Muestro cada tarea, con una función indicando sus acciones cuando se clicke
-                <li @onclick="()=> OnClickFunction.InvokeAsync(task.Id)">@task.Name - @task.Description</li>
+                <li class="list-group-item" @onclick="()=> OnClickFunction.InvokeAsync(task.Id)">@task.Name - @task.Description</li>
 
                 // Muestro el primer botón, que se creará siempre
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id">Editar</a></button>
+                <button type="button" class="btn btn-info"><a href="/edit/@task.Id">Editar</a></button>
                 @if (@MasDeUnBoton) // Si el parámetro booleano está a true
                {
                 // Añado el segundo botón
-                <button type="button" class="btn btn-info"><a class="unstyled-link" href="/edit/@task.Id/@true">Añadir Subtarea</a></button>                           
+                <button type="button" class="btn btn-info"><a href="/edit/@task.Id/@true">Añadir Subtarea</a></button>                           
                }
             }
         </ul>
-    </div>
 </div>
 
 

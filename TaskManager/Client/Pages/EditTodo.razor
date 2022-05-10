@@ -12,21 +12,44 @@ else
 }
 
 @* Contenedor para añadir o editar una tarea *@
-<div class="container border border-primary p-3">
-    <EditForm Model="@_todo" OnValidSubmit="@HandleValidSubmitAsync">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+<div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+        <div class="card-body">
+            <EditForm Model="@_todo" OnValidSubmit="@HandleValidSubmitAsync">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-        <p>Nombre de la @_texto</p>
-        <InputText @bind-Value="_todo.Name" />
-        <br />
-        <p>Descripción de la @_texto</p>
-        <InputText @bind-Value="_todo.Description" />
-        <br />
-        <p>Finalizada?</p>
-        <InputCheckbox @bind-Value="_todo.Done" />
-        <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Nombre de la @_texto</label>
+                            <InputText @bind-Value="_todo.Name" /> 
+                        </div>
+                    </div>
+                </div>
 
-        <button type="submit">Guardar</button>
-    </EditForm>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Descripción de la @_texto</label>
+                            <InputText @bind-Value="_todo.Description" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="chkDone">Finalizada?</label>
+                            <InputCheckbox @bind-Value="_todo.Done" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" d-flex flex-column text-center px-5 mt-3 mb-3">
+                    <button type="submit" class="btn btn-primary btn-block confirm-button">Guardar</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
 </div>
